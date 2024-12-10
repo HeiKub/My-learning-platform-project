@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning Platform</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        html, body {
+            height: 100%; /* Ensure full height for the body */
+            margin: 0; /* Remove default margins */
+        }
+        body {
+            display: flex; /* Enable flexbox layout */
+            flex-direction: column; /* Arrange children vertically */
+            background-color: #f3f4f6; /* Light background for main content */
+            
+        }
+        .bg-violet {
+            background-color: #6f42c1; /* Violet background for navbar */
+        }
+        .footer {
+            background-color: #6f42c1; /* Dark footer color */
+            color: white; 
+            padding: 20px 0; 
+            text-align: center;
+            margin-top: auto; /* Push footer to the bottom */
+        }
+        .main-background {
+            flex: 1; /* Allow main content to grow */
+            padding: 50px 0; /* Add some padding */
+            
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-violet">
+        <a class="navbar-brand text-white" href="{% url 'home' %}">My Learning Platform </a>
+        <style>
+           
+            </style> 
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="nav-link bg-danger border-0">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{% url 'register' %}">Register</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-background"> <!-- Main content area -->
+        <div class="container mt-5">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <span>&copy; {{ current_year }} 2024 My Learning Platform. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

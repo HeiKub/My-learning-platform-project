@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Take Quiz: {{ quiz.name }}</h1>
+<form method="POST">
+    {% csrf_token %}
+    {% for form in forms %}
+        <div class="question">
+            <p>{{ form.label }}</p>
+            {{ form }}
+        </div>
+    {% endfor %}
+    <button type="submit">Submit Answers</button>
+</form>
+{% endblock %}

@@ -1,0 +1,43 @@
+<!-- users/templates/users/user_profile.html -->
+{% extends "base_generic.html" %}
+{% load static %}
+{% block content %}
+<style>
+.main-background {
+    position: relative;
+    overflow: hidden; 
+}
+
+.main-background::before {
+    content: ''; 
+    position: absolute; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("{% static 'images/background.jpg' %}"); 
+    background-size: cover; 
+    opacity: 0.3; 
+    z-index: -1;
+}
+</style>        
+<div class="container mt-5">
+    <h2 class="text-center mb-4" style="color: #6f42c1; font-size: 3em; font-weight: bold; " >{{ profile.user.username }}'s Profile</h2>
+   
+    <div class="card mx-auto" style="max-width: 400px; border: 2px solid #6f42c1;">
+        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="card-img-top" style="max-width: 150px; margin: 20px auto; border-radius: 50%; border: 3px solid #6f42c1;">
+        
+        <div class="card-body text-center">
+            <h5 class="card-title" style="color: #6f42c1;">About Me</h5>
+            <p class="card-text" style="color: #333;">
+                <strong>Profile:</strong> {{ profile.Profile }}
+            </p>
+            {% comment %} <p class="card-text" style="color: #333;">
+                <strong>Skills:</strong> {{ profile.skills }}
+            </p> {% endcomment %}
+            <a href="{% url 'topic-list' %}" class="btn btn-primary" style="background-color: #6f42c1; border-color: #6f42c1;">Go to Topics</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

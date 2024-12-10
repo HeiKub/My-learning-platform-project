@@ -1,0 +1,40 @@
+<!-- topics/templates/topics/topic_list.html -->
+{% extends "base_generic.html" %} {% block content %}
+{% load static %}
+<style>
+  .main-background {
+      position: relative;
+      overflow: hidden; 
+  }
+  
+  .main-background::before {
+      content: ''; 
+      position: absolute; 
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url("{% static 'images/background.jpg' %}"); 
+      background-size: cover; 
+      opacity: 0.3; 
+      z-index: -1;
+  }
+  </style> 
+<div class="container mt-5">
+  <h2 class="text-center mb-4" style="color: #6f42c1; font-size: 3em; font-weight: bold; ">Topics</h2>
+  <div class="list-group">
+    {% for topic in topics %}
+    <a
+      href="{% url 'topic-detail' topic.id %}"
+      class="list-group-item list-group-item-action"
+    >
+      {{ topic.name }}
+    </a>
+    {% empty %}
+    <div class="alert alert-warning" role="alert">
+      No topics available at the moment.
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

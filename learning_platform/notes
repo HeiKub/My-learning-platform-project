@@ -1,0 +1,8 @@
+idea: creating a web application that helps users track their learning progress, receive personalized recommendations for learning resources, and interact with a community of learners.
+
+development:
+1.1 user can create and manage profiles including there skills, profile pic and bio /  # done
+1.2 user can register and login / # done
+1.3 implement logout / in progress
+1.4 after the users login he will be redirect on a page where he can find topics and choose with one & upload new material
+1.5 user can do tests to establish there knowledge

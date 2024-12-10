@@ -1,0 +1,65 @@
+<!-- templates/users/register.html -->
+{% extends 'base_generic.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .main-background {
+        position: relative;
+        overflow: hidden; 
+    }
+    
+    .main-background::before {
+        content: ''; 
+        position: absolute; 
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url("{% static 'images/background.jpg' %}"); 
+        background-size: cover; 
+        opacity: 0.3; 
+        z-index: -1;
+    }
+    </style>  
+<div class="background-wrapper">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header text-center  bg-violet text-white">
+                        <h2>Register</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+
+                            <!-- Submit Button -->
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success btn-block">Register</button>
+                            </div>
+                        </form>
+
+                        <!-- Error Messages -->
+                        {% if form.errors %}
+                            <div class="alert alert-danger mt-4">
+                                <ul>
+                                    {% for field in form %}
+                                        {% for error in field.errors %}
+                                            <li>{{ error }}</li>
+                                        {% endfor %}
+                                    {% endfor %}
+                                    {% for error in form.non_field_errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

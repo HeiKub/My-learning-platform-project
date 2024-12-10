@@ -1,0 +1,5 @@
+<h1>{{ quiz.name }} Quiz - Result</h1>
+<p>Your score: {{ result.score }}</p>
+<p>The correct answer is:{{ result.correct_answers }} </p>
+<a href="{% url 'quizzes_for_topic' quiz.topic.id %}">Back to quizzes</a> 
+

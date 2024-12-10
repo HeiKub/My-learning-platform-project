@@ -1,0 +1,66 @@
+<!-- topics/templates/topics/topic_detail.html -->
+{% extends "base_generic.html" %} {% block content %}
+{% load static %}
+<style>
+  .main-background {
+      position: relative;
+      overflow: hidden; 
+  }
+  
+  .main-background::before {
+      content: ''; 
+      position: absolute; 
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url("{% static 'images/Learning-material.jpg' %}"); 
+      background-size: cover; 
+      opacity: 0.2; 
+      z-index: -1;
+  }
+</style> 
+<h2>{{ topic.name }}</h2>
+
+<p>{{ topic.description }}</p>
+
+<h3>Materials</h3>
+<ul>
+  {% for material in materials %}
+  <li>
+    <strong>{{ material.title }}:</strong>
+    {% if material.material_type == 'file' %}
+    <a href="{{ material.content_file.url }}">Download File</a>
+    {% elif material.material_type == 'video' %}
+    <a href="{{ material.video_url }}">Watch Video</a>
+    {% elif material.material_type == 'link' %}
+    <a href="{{ material.link_url }}">Visit Link</a>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
+
+<h3>Upload New Material</h3>
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit">Upload</button>
+</form>
+
+</ul>
+
+
+<h3>Quizzes</h3>
+<ul>
+  {% if quizzes %}
+    {% for quiz in quizzes %}
+      <li>
+        <a href="{% url 'take_quiz' quiz.id %}">Question {{ forloop.counter }}</a>
+      </li>
+    {% endfor %}
+  {% else %}
+    <p>No quizzes available for this topic.</p>
+  {% endif %}
+</ul>
+
+
+{% endblock %}
